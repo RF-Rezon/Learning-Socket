@@ -1,25 +1,37 @@
 const express = require("express");
 const app = express();
 
-// const http=require("http");
-// const x =  http.createServer(app);
-
 // app.get("/", (req, res)=>{
 //     res.sendFile(__dirname+"/index.html")
 // });
 
-// x.listen("3000", ()=>{
+// app.listen("3000", ()=>{
 //    console.log("App is listening on port 3000")
 // })
-
 
 // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>        Another Approtch
 
 
-app.get("/", (req, res)=>{
-    res.sendFile(__dirname+"/index.html")
+const http = require("http");
+const { Server } = require("socket.io");
+
+const expressServer = http.createServer(app);
+
+const io = new Server(expressServer);
+
+io.on("connection", (socket)=>{
+    console.log("New User Connected.");
+
+    socket.on('disconnect', ()=>{
+        console.log("User Disconnected.")
+    })
+})
+
+app.get("/", (req, res) => {
+    res.sendFile(__dirname + "/index.html")
 });
 
-app.listen("3000", ()=>{
-   console.log("App is listening on port 3000")
+expressServer.listen("3000", () => {
+    console.log("App is listening on port 3000")
 })
+
