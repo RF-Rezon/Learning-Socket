@@ -6,15 +6,25 @@
     <title>Soket IO</title>
   </head>
   <body>
-    <p>New message will come here after 5 second.</p>
+    <p
+      class="p_class"
+      style="
+        font-weight: 800;
+        font-family: 'Segoe UI', sans-serif;
+        font-size: 80px;
+        text-align: center;
+      "
+    ></p>
     <script src="/socket.io/socket.io.js"></script>
-    <!-- <script src="./node_modules/socket.io/dist/socket.js"></script> -->
-    <!-- <script src="/socket.io/client-dist/socket.io.js"></script> -->
     <script>
       let socket = io();
 
+      // Use message event
       socket.on("message", (msg) => {
-        document.write(msg);
+        // document.write(msg);
+
+        document.querySelector(".p_class").innerHTML = "";
+        document.querySelector(".p_class").innerHTML = msg;
       });
     </script>
   </body>
