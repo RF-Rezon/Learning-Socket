@@ -6,10 +6,16 @@
     <title>Soket IO</title>
   </head>
   <body>
-    <p>MY soket IO first app</p>
+    <p>New message will come here after 5 second.</p>
     <script src="/socket.io/socket.io.js"></script>
+    <!-- <script src="./node_modules/socket.io/dist/socket.js"></script> -->
+    <!-- <script src="/socket.io/client-dist/socket.io.js"></script> -->
     <script>
       let socket = io();
+
+      socket.on("message", (msg) => {
+        document.write(msg);
+      });
     </script>
   </body>
 </html>
