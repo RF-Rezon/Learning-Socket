@@ -6,7 +6,9 @@
     <title>Soket IO</title>
   </head>
   <body>
-    <p
+    <input id="text_input" type="text" />
+    <input onclick="submit()" id="submit" type="submit" />
+    <!-- <p
       class="p_class"
       style="
         font-weight: 800;
@@ -14,18 +16,15 @@
         font-size: 80px;
         text-align: center;
       "
-    ></p>
+    ></p> -->
     <script src="/socket.io/socket.io.js"></script>
     <script>
       let socket = io();
 
-      // Use message event
-      socket.on("message", (msg) => {
-        // document.write(msg);
-
-        document.querySelector(".p_class").innerHTML = "";
-        document.querySelector(".p_class").innerHTML = msg;
-      });
+      const submit = () => {
+        const userInput = document.querySelector("#text_input").value;
+        socket.emit("custom", userInput);
+      };
     </script>
   </body>
 </html>

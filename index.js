@@ -22,12 +22,9 @@ const io = new Server(expressServer);
 io.on("connection", (socket) => {
     console.log("New User Connected.");
 
-    setInterval(() => {
-        let t = new Date;
-        let s =  t.getTime();
-        socket.send("Hi rozy, I love you. 💖" + s + " times")
-    }, 20)
-
+    socket.on("custom", (msg)=>{
+        console.log(msg)
+    })
 
     socket.on('disconnect', ()=>{
         console.log("User Disconnected.")
