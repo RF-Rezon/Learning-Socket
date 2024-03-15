@@ -22,9 +22,7 @@ const io = new Server(expressServer);
 io.on("connection", (socket) => {
     console.log("New User Connected.");
 
-    socket.on("custom", (msg)=>{
-        console.log(msg)
-    })
+    io.sockets.emit("broadCast", "This message is broadcasting.")
 
     socket.on('disconnect', ()=>{
         console.log("User Disconnected.")
