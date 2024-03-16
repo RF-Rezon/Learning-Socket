@@ -2,33 +2,25 @@ const express = require("express");
 const app = express();
 
 const http = require("http");
-// const { Server } = require("socket.io");
+const { Server } = require("socket.io");
 
 const expressServer = http.createServer(app);
 
-// const io = new Server(expressServer);
+const io = new Server(expressServer);
 
-// const goLeft = io.of("/go_left");
-// goLeft.on("connection", (socket) => {
-//     console.log("New User Connected.");
+io.on("connection", (socket) => {
+    console.log("New User Connected.");
     
-//     goLeft.emit("namespace", "Go to left.")
+    socket.on("chat", (msg)=>{
+        const {a,b} = msg;
+        console.log(a, b)
+    })
     
-//     socket.on('disconnect', ()=>{
-//         console.log("User Disconnected.")
-//     })
-// })
+    socket.on('disconnect', ()=>{
+        console.log("User Disconnected.")
+    })
+})
 
-// const goRight = io.of("/go_right");
-// goRight.on("connection", (socket) => {
-//     console.log("New User Connected.");
-
-//     goRight.emit("namespace", "Go to right.")
-
-//     socket.on('disconnect', ()=>{
-//         console.log("User Disconnected.")
-//     })
-// })
 
 app.get("/", (req, res) => {
     res.sendFile(__dirname + "/index.html")
