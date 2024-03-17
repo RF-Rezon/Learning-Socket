@@ -17,7 +17,7 @@
 
       .login-box {
         position: absolute;
-        top: 50%;
+        top: 25%;
         left: 50%;
         width: 400px;
         padding: 40px;
@@ -72,34 +72,65 @@
   </head>
   <body>
     <div class="login-box">
-      <h2>Form</h2>
+      <h2 style="padding-bottom: 15px">Form</h2>
       <form>
-        <div class="user-box">
-          <input id="name" type="text"/>
-          <label>Name</label>
+        <div class="user-box" style="padding: 10px 0px">
+          <input id="name" type="text" />
+          <label>Type message here:</label>
         </div>
-        <div class="user-box">
-          <input id="f_name" type="text"/>
-          <label>Friend Name</label>
-        </div>
-        <input style="padding: 12px 20px; border: #03e9f4; border-radius: 2px; margin: 10px 5px; color:#141e30; font-weight: 600; font-family: 'Segoe UI', sans-serif; background-color: #03e9f4; font-size: 20px; text-align: center; cursor: pointer; padding-bottom: 14px;" type="Submit" onclick="onsubmit()">
-          Submit
-      </input>
+        <input
+          style="
+            padding: 4px 20px;
+            border: #03e9f4;
+            border-radius: 2px;
+            margin: 10px 5px;
+            color: #141e30;
+            font-weight: 600;
+            font-family: 'Segoe UI', sans-serif;
+            background-color: #03e9f4;
+            font-size: 20px;
+            text-align: center;
+            cursor: pointer;
+            padding-bottom: 6px;
+          "
+          value="Send"
+          type="Submit"
+          onclick="onsubmit()"
+        />
       </form>
+    </div>
+    <div>
+      <ul
+        class="msg"
+        style="
+          display: flex;
+          flex-direction: column;
+          gap: 10px;
+          color: whitesmoke;
+          font-size: 2rem;
+          font-family: 'Lucida Sans', sans-serif;
+          font-weight: 700;
+        "
+      ></ul>
     </div>
     <script src="/socket.io/socket.io.js"></script>
     <script>
       let socket = io();
-      onsubmit = () => {
-        let a = "";
 
-        a = document.querySelector("#name").value;
-        
-        let b = "";
-        b = document.querySelector("#f_name").value;
-        socket.emit("chat", {a,b});
+      onsubmit = (event) => {
+        event.preventDefault();
+
+        let a = document.querySelector("#name").value;
+        socket.emit("chat", a);
+        document.querySelector("#name").value = "";
       };
 
+      socket.on("chat_chat", (msg) => {
+        let x = document.querySelector(".msg");
+        let y = document.createElement("li");
+        y.textContent = msg;
+        x.appendChild(y);
+      });
     </script>
   </body>
 </html>

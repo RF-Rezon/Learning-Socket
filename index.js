@@ -12,8 +12,7 @@ io.on("connection", (socket) => {
     console.log("New User Connected.");
     
     socket.on("chat", (msg)=>{
-        const {a,b} = msg;
-        console.log(a, b)
+        io.emit("chat_chat", msg)
     })
     
     socket.on('disconnect', ()=>{
