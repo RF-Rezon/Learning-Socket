@@ -10,12 +10,17 @@ const io = new Server(expressServer);
 
 io.on("connection", (socket) => {
     console.log("New User Connected.");
-    
-    socket.on("chat", (msg)=>{
-        io.emit("chat_chat", msg)
-    })
-    
-    socket.on('disconnect', ()=>{
+
+    socket.join("kitchen-room") // Creating room.
+    let sizeOfKitchen = io.sockets.adapter.rooms.get("kitchen-room").size;
+    io.in("kitchen-room").emit("cooking", `Fried Rice Cooking = ${sizeOfKitchen}`); // This events only availabe under "kitchen-room"
+    io.in("kitchen-room").emit("washing", `Washing Dishes = ${sizeOfKitchen}`); // This events only availabe under "kitchen-room"
+
+    socket.join("bed-room")  // Creating room.
+    io.in("bed-room").emit("sleeping", "Sleeping with loving wife"); // This events only availabe under "bed-room"
+    io.in("bed-room").emit("sex", "Morning sex with loving wife"); // This events only availabe under "bed-room"f
+
+    socket.on('disconnect', () => {
         console.log("User Disconnected.")
     })
 })

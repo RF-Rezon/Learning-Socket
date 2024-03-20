@@ -4,132 +4,25 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Soket IO</title>
-    <style>
-      html {
-        height: 100%;
-      }
-      body {
-        margin: 0;
-        padding: 0;
-        font-family: sans-serif;
-        background: linear-gradient(#141e30, #243b55);
-      }
-
-      .login-box {
-        position: absolute;
-        top: 25%;
-        left: 50%;
-        width: 400px;
-        padding: 40px;
-        transform: translate(-50%, -50%);
-        background: rgba(0, 0, 0, 0.5);
-        box-sizing: border-box;
-        box-shadow: 0 15px 25px rgba(0, 0, 0, 0.6);
-        border-radius: 10px;
-      }
-
-      .login-box h2 {
-        margin: 0 0 30px;
-        padding: 0;
-        color: #fff;
-        text-align: center;
-      }
-
-      .login-box .user-box {
-        position: relative;
-      }
-
-      .login-box .user-box input {
-        width: 100%;
-        padding: 10px 0;
-        font-size: 16px;
-        color: #fff;
-        margin-bottom: 30px;
-        border: none;
-        border-bottom: 1px solid #fff;
-        outline: none;
-        background: transparent;
-      }
-      .login-box .user-box label {
-        position: absolute;
-        top: 0;
-        left: 0;
-        padding: 10px 0;
-        font-size: 16px;
-        color: #fff;
-        pointer-events: none;
-        transition: 0.5s;
-      }
-
-      .login-box .user-box input:focus ~ label,
-      .login-box .user-box input:valid ~ label {
-        top: -20px;
-        left: 0;
-        color: #03e9f4;
-        font-size: 12px;
-      }
-    </style>
   </head>
   <body>
-    <div class="login-box">
-      <h2 style="padding-bottom: 15px">Form</h2>
-      <form>
-        <div class="user-box" style="padding: 10px 0px">
-          <input id="name" type="text" />
-          <label>Type message here:</label>
-        </div>
-        <input
-          style="
-            padding: 4px 20px;
-            border: #03e9f4;
-            border-radius: 2px;
-            margin: 10px 5px;
-            color: #141e30;
-            font-weight: 600;
-            font-family: 'Segoe UI', sans-serif;
-            background-color: #03e9f4;
-            font-size: 20px;
-            text-align: center;
-            cursor: pointer;
-            padding-bottom: 6px;
-          "
-          value="Send"
-          type="Submit"
-          onclick="onsubmit()"
-        />
-      </form>
-    </div>
-    <div>
-      <ul
-        class="msg"
-        style="
-          display: flex;
-          flex-direction: column;
-          gap: 10px;
-          color: whitesmoke;
-          font-size: 2rem;
-          font-family: 'Lucida Sans', sans-serif;
-          font-weight: 700;
-        "
-      ></ul>
-    </div>
+    <p
+      class="p_class"
+      style="
+        font-weight: 800;
+        font-family: 'Segoe UI', sans-serif;
+        font-size: 80px;
+        text-align: center;
+      "
+    ></p>
     <script src="/socket.io/socket.io.js"></script>
     <script>
       let socket = io();
 
-      onsubmit = (event) => {
-        event.preventDefault();
-
-        let a = document.querySelector("#name").value;
-        socket.emit("chat", a);
-        document.querySelector("#name").value = "";
-      };
-
-      socket.on("chat_chat", (msg) => {
-        let x = document.querySelector(".msg");
-        let y = document.createElement("li");
-        y.textContent = msg;
-        x.appendChild(y);
+      let broadCastMessage = document.querySelector(".p_class");
+      socket.on("washing", (msg) => {
+        broadCastMessage.innerHTML = "";
+        broadCastMessage.innerHTML = msg;
       });
     </script>
   </body>
